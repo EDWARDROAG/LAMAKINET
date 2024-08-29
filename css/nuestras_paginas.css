@@ -1,0 +1,26 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.grid-item {
+    background: #f4f4f4;
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.grid-item:hover {
+    background-color: #ddd;
+}
+
+.grid-item img {
+    max-width: 100%;
+    height: auto;
+}

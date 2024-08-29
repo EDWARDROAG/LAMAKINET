@@ -1,0 +1,29 @@
+/* Estilos generales del contenedor de los botones */
+.container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los botones se envuelvan en varias filas */
+    gap: 20px; /* Espacio entre los botones */
+    justify-content: center; /* Centra los botones horizontalmente */
+    padding: 20px; /* Espacio interno del contenedor */
+}
+
+/* Estilos de los botones */
+.category-button {
+    width: 150px; /* Ancho del botón */
+    height: 90px; /* Altura del botón */
+    background-color: #007BFF; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: azure; /* Sin borde */
+    border-radius: 15px; /* Bordes redondeados */
+    display: flex; /* Flexbox para centrar el contenido */
+    align-items: center; /* Alinea verticalmente el contenido */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    font-size: 18px; /* Tamaño de la fuente */
+    text-decoration: none; /* Sin subrayado */
+    margin: 10px; /* Espacio externo alrededor del botón */
+    transition: background-color 0.3s ease; /* Efecto de transición */
+}
+
+.category-button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el ratón */
+}
