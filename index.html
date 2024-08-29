@@ -9,6 +9,7 @@
 <body>
     <h1>Bienvenido a La Makinet</h1>
 
+    
     <div class="button-container">
         <a href="nuestras_paginas.html" class="category-button">Nuestras Páginas</a>
         <a href="educacion.html" class="category-button">Educación</a>
@@ -17,7 +18,30 @@
         <a href="otros.html" class="category-button">Otros</a>
     </div>
   </body>
-  <button onclick="window.history.back();" class="back-button">Atrás</button>
+
+  <div id="calculator" class="calculator">
+    <input type="text" id="display" class="calculator-display" disabled>
+    <div class="calculator-buttons">
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button onclick="appendNumber('+')">+</button>
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button onclick="appendNumber('-')">-</button>
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button onclick="appendNumber('*')">*</button>
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="appendNumber('/')">/</button>
+    </div> 
+
+    <script src="js/scripts.js"></script> 
+
 
 </html>
 
