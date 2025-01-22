@@ -7,41 +7,55 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Bienvenido a La Makinet</h1>
+    <!-- Encabezado Principal -->
+    <header>
+        <h1>Bienvenido a La Makinet</h1>
+    </header>
 
-    
-    <div class="button-container">
-        <a href="nuestras_paginas.html" class="category-button">Nuestras Páginas</a>
-        <a href="educacion.html" class="category-button">Educación</a>
-        <a href="salud.html" class="category-button">Salud</a>
-        <a href="gobierno.html" class="category-button">Gobierno y Legal</a>
-        <a href="otros.html" class="category-button">Otros</a>
+    <!-- Navegación Principal -->
+    <nav class="button-container">
+        <a href="nuestras_paginas.html" class="category-button">prueba</a>
+        <a href="pages/educacion.html" class="category-button">Educación</a>
+        <a href="pages/salud.html" class="category-button">Salud</a>
+        <a href="pages/gobierno.html" class="category-button">Gobierno y Legal</a>
+        <a href="pages/otros.html" class="category-button">Otros</a>
+    </nav>
+
+    <!-- Modal para Buscar Productos -->
+    <div id="priceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePriceSearch()">&times;</span>
+            <h2>Buscar Productos</h2>
+            <input type="text" id="productName" placeholder="Nombre del Producto">
+            <button onclick="searchPrice()">Buscar</button>
+            <div id="searchResults"></div>
+        </div>
     </div>
-  </body>
 
-  <div id="calculator" class="calculator">
-    <input type="text" id="display" class="calculator-display" disabled>
-    <div class="calculator-buttons">
-        <button onclick="appendNumber('1')">1</button>
-        <button onclick="appendNumber('2')">2</button>
-        <button onclick="appendNumber('3')">3</button>
-        <button onclick="appendNumber('+')">+</button>
-        <button onclick="appendNumber('4')">4</button>
-        <button onclick="appendNumber('5')">5</button>
-        <button onclick="appendNumber('6')">6</button>
-        <button onclick="appendNumber('-')">-</button>
-        <button onclick="appendNumber('7')">7</button>
-        <button onclick="appendNumber('8')">8</button>
-        <button onclick="appendNumber('9')">9</button>
-        <button onclick="appendNumber('*')">*</button>
-        <button onclick="appendNumber('0')">0</button>
-        <button onclick="clearDisplay()">C</button>
-        <button onclick="calculate()">=</button>
-        <button onclick="appendNumber('/')">/</button>
-    </div> 
+    <!-- Calculadora -->
+    <section id="calculator" class="calculator">
+        <input type="text" id="display" class="calculator-display" disabled>
+        <div class="calculator-buttons">
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button onclick="appendNumber('+')">+</button>
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button onclick="appendNumber('-')">-</button>
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button onclick="appendNumber('*')">*</button>
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="appendNumber('/')">/</button>
+        </div>
+    </section>
 
-    <script src="js/scripts.js"></script> 
-
-
+    <!-- Scripts -->
+    <script src="js/scripts.js"></script>
+</body>
 </html>
-
