@@ -7,128 +7,107 @@
     padding: 20px; /* Espacio interno del contenedor */
 }
 
-/* Estilos de los botones */
+/* Botones de categoría */
 .category-button {
-    width: 150px; /* Ancho del botón */
-    height: 90px; /* Altura del botón */
-    background-color: #007BFF; /* Color de fondo */
-    color: white; /* Color del texto */
-    border: azure; /* Sin borde */
-    border-radius: 15px; /* Bordes redondeados */
-    display: flex; /* Flexbox para centrar el contenido */
-    align-items: center; /* Alinea verticalmente el contenido */
-    justify-content: center; /* Centra el contenido horizontalmente */
-    font-size: 18px; /* Tamaño de la fuente */
-    text-decoration: none; /* Sin subrayado */
-    margin: 10px; /* Espacio externo alrededor del botón */
-    transition: background-color 0.3s ease; /* Efecto de transición */
+    width: 150px;
+    height: 90px;
+    background-color: #007BFF;
+    color: white;
+    border: none; /* Sin borde */
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem; /* Usar rem para escalabilidad */
+    text-decoration: none;
+    margin: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .category-button:hover {
-    background-color: #0056b3; /* Color de fondo al pasar el ratón */
+    background-color: #0056b3;
 }
+
+/* Botón de retroceso */
 .back-button {
     background-color: #007BFF;
     color: white;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
     margin-bottom: 20px;
     display: inline-block;
+    transition: background-color 0.3s ease;
 }
 
 .back-button:hover {
     background-color: #0056b3;
-    
 }
 
-/* //calculadora/estilo */
-.calculator {
-    width: 200px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 2px solid #007BFF;
-    border-radius: 10px;
-    background-color: #f9f9f9;
+
+/* buscar paginas */ 
+
+.search-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 1000;
 }
 
-.calculator-display {
-    width: 100%;
-    height: 40px;
-    font-size: 18px;
-    text-align: right;
-    margin-bottom: 10px;
-    padding-right: 10px;
+#search-input {
+    width: 250px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 14px;
+    outline: none;
 }
 
-.calculator-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+#search-input::placeholder {
+    color: #aaa;
+    font-style: italic;
 }
 
-.calculator-buttons button {
-    width: 100%;
-    height: 40px;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
+#search-button {
+    margin-top: 10px;
+    padding: 10px 15px;
     background-color: #007BFF;
     color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.calculator-buttons button:hover {
+#search-button:hover {
     background-color: #0056b3;
 }
 
-.calculator {
-    width: 220px;
-    padding: 20px;
-    border: 2px solid #007BFF;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    position: absolute; /* Importante para permitir arrastrar */
-    cursor: move; /* Cambia el cursor cuando pasa por encima de la calculadora */
-
-    /* Modal  boton precios*/
-.modal {
-    display: none; 
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+.suggestions-list {
+    width: 250px;
+    margin-top: 5px;
+    padding: 0;
+    list-style-type: none;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    display: none; /* Se muestra solo cuando hay sugerencias */
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
+.suggestions-list li {
+    padding: 8px 10px;
     cursor: pointer;
+    font-size: 14px;
 }
 
+.suggestions-list li:hover {
+    background-color: #f0f0f0;
 }
-

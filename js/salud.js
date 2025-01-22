@@ -1,4 +1,4 @@
-/* document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const accordions = document.querySelectorAll('.accordion');
 
     accordions.forEach(acc => {
@@ -11,4 +11,4 @@
             }
         });
     });
-}); */
+}); 

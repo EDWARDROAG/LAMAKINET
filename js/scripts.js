@@ -1,94 +1,71 @@
 
 
-/* funciones calculadora */
 
-function appendNumber(number) {
-    document.getElementById('display').value += number;
-}
+// Mapeo de palabras clave a URLs
+const pageLinks = {
+    "radicar solicitudes": "http://fut.redp.edu.co/FUT-web/#/fut/999/Contactenos",
+    "matricula 2023": "https://procesomatriculas.educacionbogota.edu.co/ords/r/edu_inscripciones/matr%C3%ADculas-sed/106",
+    colpensiones: "https://sub.colpensionestransaccional.gov.co/LoginDaMLayout.aspx?tagcliente=cup",
+    boletines: "https://apoyoescolar.educacionbogota.edu.co/apoyo_escolar/Inicio.dos;jsessionid=WKMS8T83zHPRtNfZhS-2kTfsDE_ovrSeP86JKIoG2xhXqwM7F8F4!1969911938",
+    "impuestos 2024": "https://nuevaoficinavirtual.shd.gov.co/bogota/es/descargaFacturaVA",
+    "impuestos 2025": "https://nuevaoficinavirtual.shd.gov.co/bogota/es/descargaFacturaVA", // Ejemplo de año siguiente
+    icfes: "https://www2.icfesinteractivo.gov.co/resultados-saber2016-web/pages/publicacionResultados/autenticacion/consultaSnp.jsf#No-back-button",
+    historico: "https://resultadoshistoricos.icfes.gov.co/",
+    radiografias: "https://radiofam.hiruko.com.co/portal/login",
+    colsubsidio: "https://riscolsubsidio.hiruko.com.co/portal/login",
+    rut: "https://muisca.dian.gov.co/WebRutVirtualInscripcion/#/proceso-guiado/tipoPersona",
+    citas: "https://agendamientodigiturno.dian.gov.co/Player.aspx?recurso=NavegacionDian",
+};
 
-function clearDisplay() {
-    document.getElementById('display').value = '';
-}
+// Referencias a los elementos del DOM
+const searchInput = document.getElementById("search-input");
+const suggestionsList = document.getElementById("suggestions");
 
-function calculate() {
-    try {
-        const result = eval(document.getElementById('display').value);
-        document.getElementById('display').value = result;
-    } catch (error) {
-        document.getElementById('display').value = 'Error';
+// Actualiza las sugerencias mientras el usuario escribe
+searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    suggestionsList.innerHTML = ""; // Limpia las sugerencias previas
+
+    // Encuentra coincidencias
+    const matches = Object.keys(pageLinks).filter((key) =>
+        key.includes(query)
+    );
+
+    if (matches.length > 0) {
+        suggestionsList.style.display = "block"; // Muestra las sugerencias
+
+        // Añade cada coincidencia a la lista
+        matches.forEach((match) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = match;
+            listItem.addEventListener("click", () => {
+                // Redirige al hacer clic en una sugerencia
+                window.location.href = pageLinks[match];
+            });
+            suggestionsList.appendChild(listItem);
+        });
+    } else {
+        suggestionsList.style.display = "none"; // Oculta la lista si no hay coincidencias
     }
-}
-/*   */
-/* funcion para arrastrar calculadora */
-
-document.addEventListener('DOMContentLoaded', () => {
-    const calculator = document.getElementById('calculator');
-    let isDragging = false;
-    let offsetX, offsetY;
-
-    calculator.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - calculator.offsetLeft;
-        offsetY = e.clientY - calculator.offsetTop;
-        calculator.style.cursor = 'grabbing';
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-            calculator.style.left = e.clientX - offsetX + 'px';
-            calculator.style.top = e.clientY - offsetY + 'px';
-        }
-    });
-
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-        calculator.style.cursor = 'move';
-    });
 });
 
-// codigo para hacer que la calculadora funcione con el teclado 
+// Redirige al hacer clic en el botón de búsqueda
+document.getElementById("search-button").addEventListener("click", () => {
+    const query = searchInput.value.toLowerCase();
+    const matchedPage = Object.keys(pageLinks).find((key) =>
+        key.includes(query)
+    );
 
-document.addEventListener('DOMContentLoaded', () => {
-    const display = document.getElementById('display');
-
-    // Función para agregar números u operadores al display
-    function appendNumber(number) {
-        display.value += number;
+    if (matchedPage) {
+        window.location.href = pageLinks[matchedPage];
+    } else {
+        alert("No se encontró una página que coincida con la búsqueda.");
     }
-
-    // Función para calcular el resultado
-    function calculate() {
-        try {
-            display.value = eval(display.value);
-        } catch (e) {
-            display.value = 'Error';
-        }
-    }
-
-    // Función para limpiar el display
-    function clearDisplay() {
-        display.value = '';
-    }
-
-    // Capturar las teclas presionadas
-    document.addEventListener('keydown', (event) => {
-        const key = event.key;
-
-        if (!isNaN(key) || ['+', '-', '*', '/'].includes(key)) {
-            appendNumber(key);
-        } else if (key === 'Enter') {
-            calculate();
-        } else if (key === 'Backspace') {
-            display.value = display.value.slice(0, -1);
-        } else if (key === 'Escape') {
-            clearDisplay();
-        }
-    });
-
-    // Funciones disponibles globalmente para los botones
-    window.appendNumber = appendNumber;
-    window.calculate = calculate;
-    window.clearDisplay = clearDisplay;
 });
 
-
+// Oculta las sugerencias al hacer clic fuera del campo de búsqueda
+document.addEventListener("click", (e) => {
+    if (!searchInput.contains(e.target) && !suggestionsList.contains(e.target)) {
+        suggestionsList.style.display = "none";
+    }
+});
