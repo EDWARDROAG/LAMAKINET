@@ -69,3 +69,4 @@ document.addEventListener("click", (e) => {
         suggestionsList.style.display = "none";
     }
 });
+

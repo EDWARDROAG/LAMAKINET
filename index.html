@@ -34,6 +34,31 @@
         <a href="otros.html" class="category-button">Otros</a>
     </nav>
 
+        <!-- modal para agregar pagina -->
+
+
+    <div class="add-page-container">
+        <button id="add-page-button">+</button>
+    </div>
+    
+    <div id="add-page-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agregar Nueva Página</h2>
+            <form id="add-page-form">
+                <label for="page-name">Nombre:</label>
+                <input type="text" id="page-name" required />
+                
+                <label for="page-category">Categoría:</label>
+                <input type="text" id="page-category" required />
+                
+                <label for="page-link">Enlace:</label>
+                <input type="url" id="page-link" required />
+                
+                <button type="submit">Agregar Página</button>
+            </form>
+        </div>
+    </div>
        
 
     <!-- Scripts -->
