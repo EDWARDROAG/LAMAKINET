@@ -1,72 +1,117 @@
-
-
-
-// Mapeo de palabras clave a URLs
-const pageLinks = {
-    "radicar solicitudes": "http://fut.redp.edu.co/FUT-web/#/fut/999/Contactenos",
-    "matricula 2023": "https://procesomatriculas.educacionbogota.edu.co/ords/r/edu_inscripciones/matr%C3%ADculas-sed/106",
-    colpensiones: "https://sub.colpensionestransaccional.gov.co/LoginDaMLayout.aspx?tagcliente=cup",
-    boletines: "https://apoyoescolar.educacionbogota.edu.co/apoyo_escolar/Inicio.dos;jsessionid=WKMS8T83zHPRtNfZhS-2kTfsDE_ovrSeP86JKIoG2xhXqwM7F8F4!1969911938",
-    "impuestos 2024": "https://nuevaoficinavirtual.shd.gov.co/bogota/es/descargaFacturaVA",
-    "impuestos 2025": "https://nuevaoficinavirtual.shd.gov.co/bogota/es/descargaFacturaVA", // Ejemplo de año siguiente
-    icfes: "https://www2.icfesinteractivo.gov.co/resultados-saber2016-web/pages/publicacionResultados/autenticacion/consultaSnp.jsf#No-back-button",
-    historico: "https://resultadoshistoricos.icfes.gov.co/",
-    radiografias: "https://radiofam.hiruko.com.co/portal/login",
-    colsubsidio: "https://riscolsubsidio.hiruko.com.co/portal/login",
-    rut: "https://muisca.dian.gov.co/WebRutVirtualInscripcion/#/proceso-guiado/tipoPersona",
-    citas: "https://agendamientodigiturno.dian.gov.co/Player.aspx?recurso=NavegacionDian",
-};
-
 // Referencias a los elementos del DOM
 const searchInput = document.getElementById("search-input");
 const suggestionsList = document.getElementById("suggestions");
+const addPageButton = document.getElementById("add-page-button");
+const addPageModal = document.getElementById("add-page-modal");
+const closeModal = document.querySelector(".modal .close");
+const addPageForm = document.getElementById("add-page-form");
 
-// Actualiza las sugerencias mientras el usuario escribe
-searchInput.addEventListener("input", () => {
+// Leer los enlaces desde el LocalStorage o inicializar el objeto
+const pageLinks = JSON.parse(localStorage.getItem("pageLinks")) || {
+    "radicar solicitudes": "http://fut.redp.edu.co/FUT-web/#/fut/999/Contactenos",
+    "matricula 2023": "https://procesomatriculas.educacionbogota.edu.co/ords/r/edu_inscripciones/matr%C3%ADculas-sed/106",
+    colpensiones: "https://sub.colpensionestransaccional.gov.co/LoginDaMLayout.aspx?tagcliente=cup",
+};
+
+// Guardar los enlaces actualizados en el LocalStorage
+function savePageLinks() {
+    localStorage.setItem("pageLinks", JSON.stringify(pageLinks));
+}
+
+// Función para actualizar las sugerencias en tiempo real
+function updateSuggestions() {
     const query = searchInput.value.toLowerCase();
-    suggestionsList.innerHTML = ""; // Limpia las sugerencias previas
+    suggestionsList.innerHTML = "";
 
-    // Encuentra coincidencias
-    const matches = Object.keys(pageLinks).filter((key) =>
-        key.includes(query)
-    );
+    const matches = Object.keys(pageLinks).filter((key) => key.includes(query));
 
     if (matches.length > 0) {
-        suggestionsList.style.display = "block"; // Muestra las sugerencias
-
-        // Añade cada coincidencia a la lista
+        suggestionsList.style.display = "block";
         matches.forEach((match) => {
             const listItem = document.createElement("li");
             listItem.textContent = match;
             listItem.addEventListener("click", () => {
-                // Redirige al hacer clic en una sugerencia
-                window.location.href = pageLinks[match];
+                if (pageLinks[match]) {
+                    window.location.href = pageLinks[match];
+                } else {
+                    alert("La URL no es válida.");
+                }
             });
             suggestionsList.appendChild(listItem);
         });
     } else {
-        suggestionsList.style.display = "none"; // Oculta la lista si no hay coincidencias
+        suggestionsList.style.display = "none";
     }
-});
+}
 
-// Redirige al hacer clic en el botón de búsqueda
-document.getElementById("search-button").addEventListener("click", () => {
-    const query = searchInput.value.toLowerCase();
-    const matchedPage = Object.keys(pageLinks).find((key) =>
-        key.includes(query)
-    );
+// Evento de entrada en el campo de búsqueda
+searchInput.addEventListener("input", updateSuggestions);
 
-    if (matchedPage) {
-        window.location.href = pageLinks[matchedPage];
-    } else {
-        alert("No se encontró una página que coincida con la búsqueda.");
-    }
-});
-
-// Oculta las sugerencias al hacer clic fuera del campo de búsqueda
+// Ocultar las sugerencias cuando se hace clic fuera del campo de búsqueda o las sugerencias
 document.addEventListener("click", (e) => {
-    if (!searchInput.contains(e.target) && !suggestionsList.contains(e.target)) {
+    if (!e.target.closest("#search-input") && !e.target.closest("#suggestions")) {
         suggestionsList.style.display = "none";
     }
 });
 
+// Función para abrir el modal de añadir página
+addPageButton.addEventListener("click", () => {
+    addPageModal.style.display = "block";
+});
+
+// Función para cerrar el modal
+closeModal.addEventListener("click", () => {
+    addPageModal.style.display = "none";
+});
+
+// Manejar el envío del formulario para añadir nuevas páginas
+addPageForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const pageName = document.getElementById("page-name").value.toLowerCase().trim();
+    const pageURL = document.getElementById("page-url").value.trim();
+
+    if (pageName && pageURL) {
+        pageLinks[pageName] = pageURL;
+        savePageLinks(); // Guardar los enlaces en el LocalStorage
+        alert(`La página \"${pageName}\" ha sido añadida correctamente.`);
+        addPageModal.style.display = "none";
+        addPageForm.reset();
+    } else {
+        alert("Por favor, completa todos los campos antes de añadir la página.");
+    }
+});
+
+// Función para cargar los enlaces almacenados al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+    Object.keys(pageLinks).forEach((name) => {
+        console.log(`Enlace cargado: ${name} -> ${pageLinks[name]}`);
+    });
+});
+
+// Cerrar el modal si se hace clic fuera de él
+window.addEventListener("click", (e) => {
+    if (e.target === addPageModal) {
+        addPageModal.style.display = "none";
+    }
+});
+
+// Referencia al botón de descarga
+const downloadPagesButton = document.getElementById("download-pages-button");
+
+// Función para descargar las páginas guardadas
+downloadPagesButton.addEventListener("click", () => {
+    const savedPages = JSON.parse(localStorage.getItem("pageLinks")) || {};
+    const dataStr = JSON.stringify(savedPages, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "pages.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url); // Limpia el URL generado
+});
