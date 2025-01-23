@@ -21,16 +21,39 @@
     font-size: 1rem; /* Usar rem para escalabilidad */
     text-decoration: none;
     margin: 10px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 .category-button:hover {
     background-color: #0056b3;
+    transform: scale(1.1); /* Aumenta el tamaño del botón al hacer hover */
+}
+
+.category-button::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%; /* Mueve el tooltip por encima del botón */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.category-button:hover::after {
+    opacity: 1;
 }
 
 /* Botón de retroceso */
 .back-button {
-    background-color: #007BFF;
+    background-color: #FF6347;
     color: white;
     border: none;
     border-radius: 5px;
@@ -43,12 +66,10 @@
 }
 
 .back-button:hover {
-    background-color: #0056b3;
+    background-color: #e53e36;
 }
 
-
-/* buscar paginas */ 
-
+/* Buscar páginas */
 .search-container {
     position: fixed;
     top: 20px;
@@ -112,45 +133,66 @@
     background-color: #f0f0f0;
 }
 
-/* Botón + "agregar pagina" */
-.add-page-container {
+/* Contenedor de los botones en la esquina inferior derecha */
+.add-page-container,
+#download-pages-button {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
+    bottom: 10px; /* Ajusta la distancia desde el borde inferior */
+    right: 10px; /* Ajusta la distancia desde el borde derecho */
+    display: flex;
+    flex-direction: column; /* Coloca los botones de arriba hacia abajo */
+    gap: 10px; /* Espacio entre los botones */
+    z-index: 1000; /* Asegura que los botones estén por encima de otros elementos */
 }
 
-#add-page-button {
-    width: 50px;
-    height: 50px;
-    font-size: 30px;
+/* Estilos generales de los botones redondos */
+#add-page-button,
+#download-pages-button {
+    width: 20mm; /* El tamaño de los botones será de 20 mm de diámetro */
+    height: 20mm; /* El tamaño de los botones será de 20 mm de diámetro */
+    background-color: #007BFF; /* Color azul */
     color: white;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 50%;
+    border: none; /* Sin borde */
+    border-radius:50%; /* Bordes redondeados */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem; /* Tamaño de fuente más grande */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    position: static;
 }
 
-#add-page-button:hover {
-    background-color: #0056b3;
+#add-page-button:hover,
+#download-pages-button:hover {
+    background-color: #0056b3; /* Color más oscuro al hacer hover */
+    transform: scale(1.1); /* Aumenta el tamaño del botón al hacer hover */
 }
 
-/* Botón + "DESCARGAR LISTA DE PAGINAS" */
-
-.icon-button {
-    width: 50px;
-    height: 50px;
-    font-size: 30px;
+/* Tooltip */
+#add-page-button::after,
+#download-pages-button::after {
+    content: attr(data-tooltip); /* Toma el texto del atributo data-tooltip */
+    position: absolute;
+    bottom: 120%; /* Mueve el tooltip por encima del botón */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333; /* Fondo oscuro */
     color: white;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap; /* Evita que el texto se divida en líneas */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
-.icon-button:hover {
-    background: #0056b3;
+
+/* Muestra el tooltip al pasar el mouse */
+#add-page-button:hover::after,
+#download-pages-button:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px);
 }
 
 /* Modal */
@@ -224,3 +266,31 @@
     color: black;
 }
 
+/* Tooltip container */
+button[data-tooltip] {
+    position: relative;
+}
+
+/* Tooltip text */
+button[data-tooltip]::after {
+    content: attr(data-tooltip); /* Toma el texto del atributo data-tooltip */
+    position: absolute;
+    bottom: 60px; /* Ajusta según el tamaño del botón */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333; /* Fondo oscuro */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap; /* Evita que el texto se divida en líneas */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Muestra el tooltip al pasar el mouse */
+button[data-tooltip]:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px);
+}
